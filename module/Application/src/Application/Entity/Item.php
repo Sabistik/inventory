@@ -7,7 +7,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use JMS\Serializer\Annotation as Serializer;
 
 /** 
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Application\Repository\ItemRepository")
  * @ORM\Table(name="item")
  * @ORM\HasLifecycleCallbacks
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)

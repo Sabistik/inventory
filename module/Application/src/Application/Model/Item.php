@@ -4,6 +4,7 @@ namespace Application\Model;
 
 use Application\Entity;
 use DoctrineModule\Stdlib\Hydrator\DoctrineObject as DoctrineHydrator;
+use Doctrine\Common\Collections\Criteria;
 
 
 class Item {
@@ -33,16 +34,9 @@ class Item {
         return $oItemsRows;
     }
     
-    public function getList($iLimit = null, $sOrder = null)
+    public function getList($sQuery = null, $sOrder = null, $iLimit = null)
     {
-        $aOrder = array();
-        
-        if(!empty($sOrder) && strpos($sOrder, ':') !== false) {
-            list($sFieldName, $sDirestion) = explode(':', $sOrder);
-            $aOrder[$sFieldName] = $sDirestion;
-        }
-        
-        $oItemsRows = $this->getEntityManager()->getRepository('Application\Entity\Item')->findBy(array(), $aOrder, $iLimit);
+        $oItemsRows = $this->getEntityManager()->getRepository('Application\Entity\Item')->findByTraits($sQuery, $sOrder, $iLimit);
         
         return $oItemsRows;
     }

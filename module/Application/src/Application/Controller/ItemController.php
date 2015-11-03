@@ -20,12 +20,13 @@ class ItemController extends AbstractRestfulController
     
     public function getList()
     {
+        $sQuery = $this->params()->fromQuery('query');
         $iLimit = $this->params()->fromQuery('limit');
         $sOrder = $this->params()->fromQuery('order');
         
         $oItemModule = $this->getServiceLocator()->get('Model\Item');
         
-        $aData = Utils\Serializer::entityToArray($oItemModule->getList($iLimit, $sOrder));
+        $aData = Utils\Serializer::entityToArray($oItemModule->getList($sQuery, $sOrder, $iLimit));
         
         return new JsonModel($aData);
     }
